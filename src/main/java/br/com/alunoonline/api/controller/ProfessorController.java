@@ -16,14 +16,14 @@ public class ProfessorController {
     @Autowired
     ProfessorService professorService;
 
-    // ✅ Criar professor
+    //  Criar professor
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void criarProfessor(@RequestBody Professor professor) {
         professorService.criarProfessor(professor);
     }
 
-    // ✅ Listar todos
+    // Listar todos
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Professor> listarTodosProfessores() {
