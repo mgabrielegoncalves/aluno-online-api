@@ -13,10 +13,10 @@
 
 
 ## 📌 Sobre o Projeto
+Esta API REST foi desenvolvida utilizando **Spring Boot**, com o objetivo de gerenciar um sistema acadêmico completo, permitindo o gerenciamento de alunos, professores, disciplinas e matrículas.
 
-Esta API REST foi desenvolvida utilizando **Spring Boot** com o objetivo de gerenciar dados acadêmicos de alunos e professores.
+A aplicação permite operações completas de CRUD (Create, Read, Update e Delete), além de regras de negócio relacionadas ao controle de matrículas acadêmicas, seguindo boas práticas de desenvolvimento como arquitetura em camadas e separação de responsabilidades.
 
-A aplicação permite realizar operações completas de **CRUD (Create, Read, Update, Delete)**, seguindo boas práticas de desenvolvimento como arquitetura em camadas e separação de responsabilidades.
 
 ---
 
@@ -30,12 +30,14 @@ src/
 ├── repository/
 ├── service/
 ├── controller/
+├── dtos/
 ```
 
-* **Model** → Representa as entidades do sistema (Aluno e Professor)
+* **Model** → Representa as entidades do sistema (Aluno, Professor, Disciplina e Matrícula)
 * **Repository** → Responsável pelo acesso ao banco de dados (JPA)
 * **Service** → Contém as regras de negócio
 * **Controller** → Responsável pelos endpoints da API
+*  **DTOs** → Objetos utilizados para transferência de dados entre cliente e API
 
 ---
 
@@ -78,6 +80,28 @@ src/
 
 ---
 
+### 📚 Disciplina
+
+| Método | Endpoint          | Descrição          |
+| ------ | ----------------- | ------------------ |
+| POST   | /disciplinas      | Criar disciplina   |
+| GET    | /disciplinas      | Listar disciplinas |
+| GET    | /disciplinas/{id} | Buscar por ID      |
+| PUT    | /disciplinas/{id} | Atualizar          |
+| DELETE | /disciplinas/{id} | Deletar            |
+
+---
+
+## 📝 Funcionalidades de Matrícula
+
+| Método | Endpoint                         | Descrição |
+| ------ | -------------------------------- | ---------- |
+| POST   | /matriculas                      | Criar matrícula |
+| PATCH  | /matriculas/trancar/{id}         | Trancar matrícula |
+| PATCH  | /matriculas/atualizar-notas/{id} | Atualizar notas |
+
+---
+
 ## 🧪 Testes com Insomnia
 
 A API foi testada utilizando o Insomnia para simular requisições HTTP.
@@ -117,6 +141,30 @@ A API foi testada utilizando o Insomnia para simular requisições HTTP.
 ### 🔹 Deletar professor por ID (DELETE)
 <img width="1918" height="1018" alt="image" src="https://github.com/user-attachments/assets/aa750c44-0be6-461a-a574-5abbb509587c" />
 
+### 🔹 Criar Disciplina (POST)
+<img width="1600" height="798" alt="image" src="https://github.com/user-attachments/assets/cd4bdf13-f9d7-441e-80cc-5fffdd903449" />
+
+### 🔹 Listar todas as Disciplinas (GET)
+<img width="1600" height="797" alt="image" src="https://github.com/user-attachments/assets/dbcab198-4135-46eb-bf9e-d96661bebc64" />
+
+### 🔹 Buscar Disciplina por ID (GET)
+<img width="1600" height="790" alt="image" src="https://github.com/user-attachments/assets/d957d178-631f-4128-a00e-a19c8a2266d8" />
+
+### 🔹 Atualizar Disciplina por ID (PUT)
+<img width="1600" height="792" alt="image" src="https://github.com/user-attachments/assets/32ae286c-6031-4edc-a129-aefa0fc1d2ab" />
+
+### 🔹 Deletar Disciplina por ID (DELETE)
+<img width="1600" height="794" alt="image" src="https://github.com/user-attachments/assets/07505dd0-3430-4a3f-acfa-da517e616e68" />
+
+### 🔹 Criar Matrícula (POST)
+<img width="1600" height="792" alt="image" src="https://github.com/user-attachments/assets/cc604e3a-63d8-4744-aaa7-db94def133ae" />
+
+### 🔹 Trancar Matrícula (PATCH)
+<img width="1600" height="789" alt="image" src="https://github.com/user-attachments/assets/e4fce5b6-b404-4e41-966c-64c7c64c6e17" />
+
+### 🔹 Atualizar notas (PATCH)
+<img width="1600" height="789" alt="image" src="https://github.com/user-attachments/assets/343e83c9-e29f-47fd-8d28-cf907845c09e" />
+
 ---
 
 ## 🗄️ Banco de Dados
@@ -124,10 +172,18 @@ A API foi testada utilizando o Insomnia para simular requisições HTTP.
 Foi utilizado o **PostgreSQL** como banco de dados, com gerenciamento pelo DBeaver.
 
 ### 🔹 Tabela Aluno
-<img width="1918" height="1016" alt="image" src="https://github.com/user-attachments/assets/693da72b-8bd7-407b-9de5-35b17e2385a9" />
+<img width="1600" height="849" alt="image" src="https://github.com/user-attachments/assets/627279e6-2754-4dcf-a1a4-99a7b158cd84" />
+
 
 ### 🔹 Tabela Professor
-<img width="1918" height="1020" alt="image" src="https://github.com/user-attachments/assets/c28d21ae-2d23-4244-be05-ca31e314a1f7" />
+<img width="1600" height="848" alt="image" src="https://github.com/user-attachments/assets/220cfda4-29a9-4ce0-ae5c-90e617074b5e" />
+
+
+### 🔹 Tabela Disciplina
+<img width="1600" height="845" alt="image" src="https://github.com/user-attachments/assets/b8256587-73ec-46c8-aaed-2bf4b9d832b2" />
+
+### 🔹 Tabela matricula_aluno
+<img width="1600" height="846" alt="image" src="https://github.com/user-attachments/assets/cae66cd8-8709-477d-b51b-fcec90de044f" />
 
 
 ---
@@ -156,10 +212,12 @@ http://localhost:8080
 ## 📊 Detalhamento do Código
 
 * Os **Controllers** recebem as requisições HTTP e direcionam para os serviços;
-* Os **Services** processam as regras de negócio;
-* Os **Repositories** fazem a comunicação com o banco de dados usando JPA;
-* As **Entities (Model)** representam as tabelas no banco.
-
+* Os **Services** processam as regras de negócio da aplicação;
+* Os **Repositories** fazem a comunicação com o banco de dados utilizando Spring Data JPA;
+* As **Entities (Model)** representam as tabelas do banco de dados;
+* Os **DTOs** são utilizados para transferência de dados específicos entre cliente e API;
+* O projeto utiliza **Derived Query** para criação de consultas personalizadas através da nomenclatura dos métodos no Repository;
+* As regras de matrícula utilizam **Enum** para controle de status acadêmico.
 ---
 
 ## 👩‍💻 Autora
